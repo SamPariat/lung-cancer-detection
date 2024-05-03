@@ -25,4 +25,5 @@ type CLIBackendResponse struct {
 	RandomForestPrediction string `json:"randomForestPrediction"`
 	SVMPrediction          string `json:"svmPrediction"`
 	XGBoostPrediction      string `json:"xgboostPrediction"`
+	StackingPrediction     string `json:"stackingPrediction"`
 }

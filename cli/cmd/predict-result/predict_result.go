@@ -68,7 +68,8 @@ func RunCmd(cmd *cobra.Command, args []string) {
 |  2. KNN: %s,                                                |
 |  3. Random Forest: %s,                                      |
 |  4. SVM: %s,                                                |
-|  5. XGBoost: %s                                             |
+|  5. XGBoost: %s,                                            |
+|  6. Stacking: %s,                                           |
 |                                                             |
 ---------------------------------------------------------------
 `,
@@ -77,6 +78,7 @@ func RunCmd(cmd *cobra.Command, args []string) {
 		backendResponse.RandomForestPrediction,
 		backendResponse.SVMPrediction,
 		backendResponse.XGBoostPrediction,
+		backendResponse.StackingPrediction,
 	)
 }
 
