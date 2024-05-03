@@ -67,14 +67,17 @@ func RunCmd(cmd *cobra.Command, args []string) {
 |  1. Adaboost: %s,                                           |
 |  2. KNN: %s,                                                |
 |  3. Random Forest: %s,                                      |
-|  4. SVM: %s                                                 |
+|  4. SVM: %s,                                                |
+|  5. XGBoost: %s                                             |
 |                                                             |
 ---------------------------------------------------------------
 `,
 		backendResponse.AdaboostPrediction,
 		backendResponse.KNNPrediction,
 		backendResponse.RandomForestPrediction,
-		backendResponse.SVMPrediction)
+		backendResponse.SVMPrediction,
+		backendResponse.XGBoostPrediction,
+	)
 }
 
 var PredictResultCmd = &cobra.Command{
