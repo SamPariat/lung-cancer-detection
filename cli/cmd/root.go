@@ -1,5 +1,5 @@
 /*
-Copyright © 2024 NAME HERE <EMAIL ADDRESS>
+Copyright © 2024 NAME HERE apunthelegend@outlook.com
 */
 package cmd
 
@@ -18,7 +18,9 @@ var rootCmd = &cobra.Command{
 
 This is a CLI tool that can be used to detect whether a patient has lung cancer or not.
 
-Please use the 'lung-cancer-detection detect' command to start.
+Please use the command
+'go run main.go predict-result --age=? --alcohol-consuming=? --allergy=? --anxiety=? --chest-pain=? --chronic-disease=? --coughing=? --fatigue=? --gender=? --lung-cancer=? --peer-pressure=? --shortness-of-breath=? --smoking=? --swallowing-difficulty=? --wheezing=? --yellow-fingers=?'
+command to start.
 	`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
