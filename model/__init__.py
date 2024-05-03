@@ -13,9 +13,6 @@ def health_check():
         'status': 200,
     })
 
-with open('model.pkl', 'rb') as model_file:
-    model = pickle.load(model_file)
-
 with open('scalar_data.pkl', 'rb') as scalar_file:
     model_scaler = pickle.load(scalar_file)
 
@@ -37,7 +34,7 @@ def predict_lung_cancer():
 
     data = request.json
 
-    gender = data['gender']
+    gender = 1 if data['gender'] == 'M' else 0
     age = data['age']
     smoking = data['smoking']
     yellowFingers = data['yellowFingers']
@@ -77,13 +74,27 @@ def predict_lung_cancer():
         chestPain
     ])
 
-    # Make predictions using the model
-    prediction = model.predict(features.reshape(1, -1))
+    features = features.reshape(1, -1)
 
-    # Prepare the prediction result in JSON format
-    result = {'prediction': prediction[0]}
+    print(features)
 
-    # Return the prediction result as JSON
+    random_forest_prediction = random_forest_classifier.predict(features)
+    svm_prediction = svm_classifier.predict(features)
+    knn_prediction = knn_classifier.predict(features)
+    adaboost_prediction = adaboost.predict(features)
+
+    print(random_forest_prediction)
+    print(svm_prediction)
+    print(knn_prediction)
+    print(adaboost_prediction)
+
+    result = {
+        'randomForestPrediction': "YES" if int(random_forest_prediction[0]) == 1 else "NO",
+        'svmPrediction': "YES" if int(svm_prediction[0]) == 1 else "NO",
+        'knnPrediction': "YES" if int(knn_prediction[0]) == 1 else "NO",
+        'adaboostPrediction': "YES" if int(adaboost_prediction[0]) == 1 else "NO",
+    }
+
     return jsonify(result)
 
 if __name__ == '__main__':

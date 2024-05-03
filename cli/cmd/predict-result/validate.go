@@ -13,10 +13,6 @@ func (cliResult *CLIResult) ValidateCLIEntries() error {
 		return errors.New("gender must be either M or F")
 	}
 
-	if cliResult.LungCancer != "YES" && cliResult.LungCancer != "NO" {
-		return errors.New("lung cancer must be either YES or NO")
-	}
-
 	if cliResult.Age < 0 || cliResult.Age > 100 {
 		return fmt.Errorf("age must be between 0 and 100, but provided value is:%d", cliResult.Age)
 	}

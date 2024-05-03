@@ -30,7 +30,15 @@ func RunCmd(cmd *cobra.Command, args []string) {
 
 	postBodyBuffer := bytes.NewBuffer(postBodyBytes)
 
-	httpResponse, err := http.Post(constants.BaseUrl, constants.ApplicationJson, postBodyBuffer)
+	req, err := http.NewRequest("POST", constants.BaseUrl, postBodyBuffer)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	req.Header.Set(constants.NgrokSkipBrowserWarning, "any")
+	req.Header.Set(constants.ContentType, constants.ApplicationJson)
+
+	httpResponse, err := http.DefaultClient.Do(req)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -41,9 +49,32 @@ func RunCmd(cmd *cobra.Command, args []string) {
 		log.Fatal(err)
 	}
 
-	stringBody := string(body)
+	var backendResponse CLIBackendResponse
+	err = json.Unmarshal(body, &backendResponse)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	log.Printf("%s", stringBody)
+	log.Printf(`
+
+---------------------------------------------------------------
+|                                                             |
+| Here are the predictions for your data:                     |
+|                                                             |
+---------------------------------------------------------------
+|                                                             |
+|  Based on the data provided, the following models predict:  |
+|  1. Adaboost: %s,                                           |
+|  2. KNN: %s,                                                |
+|  3. Random Forest: %s,                                      |
+|  4. SVM: %s                                                 |
+|                                                             |
+---------------------------------------------------------------
+`,
+		backendResponse.AdaboostPrediction,
+		backendResponse.KNNPrediction,
+		backendResponse.RandomForestPrediction,
+		backendResponse.SVMPrediction)
 }
 
 var PredictResultCmd = &cobra.Command{
@@ -162,13 +193,6 @@ func init() {
 		0,
 		"Chest pain",
 	)
-	PredictResultCmd.PersistentFlags().StringVarP(
-		&cliResult.LungCancer,
-		constants.LungCancerFlag,
-		constants.LungCancerFlagShort,
-		"",
-		"Lung cancer",
-	)
 
 	PredictResultCmd.MarkPersistentFlagRequired(constants.GenderFlag)
 	PredictResultCmd.MarkPersistentFlagRequired(constants.AgeFlag)
@@ -185,5 +209,4 @@ func init() {
 	PredictResultCmd.MarkPersistentFlagRequired(constants.ShortnessOfBreathFlag)
 	PredictResultCmd.MarkPersistentFlagRequired(constants.SwallowingDifficultyFlag)
 	PredictResultCmd.MarkPersistentFlagRequired(constants.ChestPainFlag)
-	PredictResultCmd.MarkPersistentFlagRequired(constants.LungCancerFlag)
 }

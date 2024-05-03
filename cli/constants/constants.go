@@ -16,7 +16,6 @@ const (
 	ShortnessOfBreathFlag    = "shortness-of-breath"
 	SwallowingDifficultyFlag = "swallowing-difficulty"
 	ChestPainFlag            = "chest-pain"
-	LungCancerFlag           = "lung-cancer"
 	PredictResultCommand     = "predict-result"
 
 	GenderFlagShort               = "g"
@@ -34,8 +33,9 @@ const (
 	ShortnessOfBreathFlagShort    = "b"
 	SwallowingDifficultyFlagShort = "d"
 	ChestPainFlagShort            = "k"
-	LungCancerFlagShort           = "m"
 
-	BaseUrl         = "http://127.0.0.1:5000"
-	ApplicationJson = "application/json"
+	BaseUrl                 = "http://192.168.1.13:8000/prediction"
+	ContentType             = "Content-Type"
+	ApplicationJson         = "application/json"
+	NgrokSkipBrowserWarning = "ngrok-skip-browser-warning"
 )
