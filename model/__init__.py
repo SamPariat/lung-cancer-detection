@@ -59,19 +59,19 @@ def predict_lung_cancer():
     features = np.array([
         gender,
         age_scaled,
-        smoking,
-        yellowFingers,
-        anxiety,
-        peerPressure,
-        chronicDisease,
-        fatigue,
-        allergy,
-        wheezing,
-        alcoholConsuming,
-        coughing,
-        shortnessOfBreath,
-        swallowingDifficulty,
-        chestPain
+        smoking - 1,
+        yellowFingers - 1,
+        anxiety - 1,
+        peerPressure - 1,
+        chronicDisease - 1,
+        fatigue - 1,
+        allergy - 1,
+        wheezing - 1,
+        alcoholConsuming - 1,
+        coughing - 1,
+        shortnessOfBreath - 1,
+        swallowingDifficulty - 1,
+        chestPain - 1
     ])
 
     features = features.reshape(1, -1)
