@@ -19,17 +19,22 @@ with open('model.pkl', 'rb') as model_file:
 with open('scalar_data.pkl', 'rb') as scalar_file:
     model_scaler = pickle.load(scalar_file)
 
-# Fit LabelEncoders for categorical features
-label_encoders = {}
-for feature in ['alcoholConsuming', 'allergy', 'anxiety', 'chestPain',
-                'chronicDisease', 'coughing', 'fatigue', 'lungCancer',
-                'peerPressure', 'shortnessOfBreath', 'smoking',
-                'swallowingDifficulty', 'wheezing', 'yellowFingers']:
-    label_encoders[feature] = LabelEncoder()
-    label_encoders[feature].fit([1, 2])  # Assuming values are 1 and 2
+with open('random_forest.pkl', 'rb') as random_forest_file:
+    random_forest_classifier = pickle.load(random_forest_file)
+
+with open('svm.pkl', 'rb') as svm_file:
+    svm_classifier = pickle.load(svm_file)
+
+with open('knn.pkl', 'rb') as knn_file:
+    knn_classifier = pickle.load(knn_file)
+
+with open('adaboost.pkl', 'rb') as adaboost_file:
+    adaboost = pickle.load(adaboost_file)
 
 @app.route('/prediction', methods=['POST'])
 def predict_lung_cancer():
+    print(request.json)
+
     data = request.json
 
     gender = data['gender']
@@ -82,26 +87,4 @@ def predict_lung_cancer():
     return jsonify(result)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=1234, debug=True)
-
-
-
-
-    {
-  "age": 2,
-  "alcoholConsuming": 2,
-  "allergy": 2,
-  "anxiety": 2,
-  "chestPain": 2,
-  "chronicDisease": 2,
-  "coughing": 2,
-  "fatigue": 2,
-  "gender": "M",
-  "lungCancer": "YES",
-  "peerPressure": 2,
-  "shortnessOfBreath": 2,
-  "smoking": 2,
-  "swallowingDifficulty": 2,
-  "wheezing": 2,
-  "yellowFingers": 2
-}
+    app.run(host='0.0.0.0', port=8000, debug=True)
