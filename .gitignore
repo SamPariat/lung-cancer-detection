@@ -1,0 +1,25 @@
+# Flask gitignore section
+.idea/
+.vscode/
+.venv*/
+venv*/
+__pycache__/
+dist/
+.coverage*
+htmlcov/
+.tox/
+docs/_build/
+/model/.ipynb_checkpoints
+
+# Go Cobra gitignore section
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+*.test
+
+*.out
+
+go.work
